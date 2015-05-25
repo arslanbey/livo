@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd  
+	http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+	<!-- Root Context: defines shared resources visible to all other web components -->
+
+	<!-- Security -->
+	<security:http use-expressions="true" create-session="never">
+		<security:intercept-url pattern="/login/**"
+			access="permitAll" />
+		<security:intercept-url pattern="/bootstrap/**"
+			access="permitAll" />
+		<security:intercept-url pattern="/css/**"
+			access="permitAll" />
+		<security:intercept-url pattern="/fonts/**"
+			access="permitAll" />
+		<security:intercept-url pattern="/images/**"
+			access="permitAll" />
+		<security:intercept-url pattern="/js/**"
+			access="permitAll" />
+		<security:intercept-url pattern="/plugins/**"
+			access="permitAll" />
+		<security:intercept-url pattern="/img/**"
+			access="permitAll" />
+		<security:intercept-url pattern="/**" access="authenticated" />
+		<security:form-login login-page="/login"
+			login-processing-url="/login/process" default-target-url="/"
+			username-parameter="companyId" password-parameter="companySecret"
+			authentication-failure-url="/login/error" always-use-default-target="true" />
+		<security:logout logout-url="/logout" />
+	</security:http>
+	<security:authentication-manager>
+		<security:authentication-provider>
+			<security:user-service>
+				<security:user name="jimi" password="jimispassword"
+					authorities="ROLE_USER, ROLE_ADMIN" />
+				<security:user name="bob" password="bobspassword"
+					authorities="ROLE_USER" />
+			</security:user-service>
+		</security:authentication-provider>
+	</security:authentication-manager>
+
+	<!-- Beans -->
+
+	<!-- <bean id="aeonAuthcProvider" -->
+	<!-- class="tr.com.eno.livo.server.web.AEONUserDetailsAuthenticationProvider" 
+		depends-on="installation"> -->
+	<!-- </bean> -->
+	<!-- <bean id="multipartResolver" -->
+	<!-- class="org.springframework.web.multipart.commons.CommonsMultipartResolver" 
+		depends-on="installation"> -->
+	<!-- </bean> -->
+	<!-- <bean id="installation" class="tr.com.eno.livo.server.web.bean.InstallationBean" 
+		init-method="init"></bean> -->
+
+</beans>
